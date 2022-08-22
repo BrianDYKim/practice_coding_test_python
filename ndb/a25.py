@@ -1,21 +1,23 @@
 def solution(N, stages):
     answer = []
-    length = len(stages)
+    length = len(stages) # 사용자의 수
 
-    # 스테이지를 1부터 N까지 조회한다
+    # 모든 stage를 탐색한다
     for i in range(1, N + 1):
-        # 해당 스테이지에 있는 사람의 수를 센다
-        count = stages.count(i)
+        count = stages.count(i) # 해당 stage에 머무르는 사람의 수
 
+        # 만일 count가 0인 경우 (i.e. 모두 통과한 경우)
         if count == 0:
             fail = 0
+        # 만일 머무르는 사람이 있는 경우
         else:
             fail = count / length
 
-        answer.append((i, fail))
-        length -= count
+        length -= count # length 줄이기
+        answer.append((fail, i))
 
-    answer = sorted(answer, key=lambda x: x[1], reverse=True)
-    answer = [i[0] for i in answer]
+    # 정렬
+    answer = sorted(answer, key=lambda x: x[0], reverse=True)
+    answer = [i[1] for i in answer]
 
     return answer
