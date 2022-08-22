@@ -1,19 +1,21 @@
 import sys
+import heapq
 input = sys.stdin.readline
 
 N = int(input())
-number_list = []
+heap = []
 
 for _ in range(N):
-    number_list.append(int(input()))
+    data = int(input())
+    heapq.heappush(heap, data)
 
-number_list.sort() # 정렬
-sum = 0
+result = 0
 
-for i in range(N):
-    if i in (0, 1):
-        sum += number_list[i]
-    else:
-        sum = sum * 2 + number_list[i]
+while len(heap) != 1:
+    first = heapq.heappop(heap)
+    second = heapq.heappop(heap)
+    sum_value = first + second
+    result += sum_value
+    heapq.heappush(heap, sum_value)
 
-print(int(sum))
+print(result)
